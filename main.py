@@ -283,7 +283,7 @@ def train(loader, model, crit, opt, epoch):
                   .format(epoch, i, len(loader), batch_time=batch_time,
                           data_time=data_time, loss=losses))
 
-        return losses.avg
+    return losses.avg
 
 def compute_features(dataloader, model, N):
     if args.verbose:
