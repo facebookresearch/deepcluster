@@ -36,6 +36,16 @@ Direct download links are provided here:
 * [VGG16-PyTorch](https://s3.amazonaws.com/deepcluster/vgg16/checkpoint.pth.tar)
 * [VGG16-prototxt](https://s3.amazonaws.com/deepcluster/vgg16/model.prototxt) + [VGG16-caffemodel](https://s3.amazonaws.com/deepcluster/vgg16/model.caffemodel)
 
+We also provide the last epoch cluster assignments for these models. After downloading, open the file with Python 2:
+```
+import pickle
+with open("./alexnet_cluster_assignment.pickle", "rb") as f:   # Unpickling
+    b = pickle.load(f)
+```
+If you're a Python 3 user, specify ```encoding='latin1'``` in the load fonction.
+Each file is a list of (image path, cluster_index) tuples.
+* [AlexNet-clusters](https://s3.amazonaws.com/deepcluster/alexnet/alexnet_cluster_assignment.pickle)
+* [VGG16-clusters](https://s3.amazonaws.com/deepcluster/vgg16/vgg16_cluster_assignment.pickle)
 
 ## Running the unsupervised training
 
