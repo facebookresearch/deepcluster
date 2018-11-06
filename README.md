@@ -39,7 +39,7 @@ Direct download links are provided here:
 We also provide the last epoch cluster assignments for these models. After downloading, open the file with Python 2:
 ```
 import pickle
-with open("./alexnet_cluster_assignment.pickle", "rb") as f:   # Unpickling
+with open("./alexnet_cluster_assignment.pickle", "rb") as f:
     b = pickle.load(f)
 ```
 If you're a Python 3 user, specify ```encoding='latin1'``` in the load fonction.
@@ -239,6 +239,10 @@ From the visu folder, after having changed the fields ```MODEL```, ```EXP```, ``
 ```
 ./activ-retrieval.sh
 ```
+
+## License
+
+You may find out more about the license [here](https://github.com/facebookresearch/deepcluster/blob/master/LICENSE).
 
 ## Reference
 
