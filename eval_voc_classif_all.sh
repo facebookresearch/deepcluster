@@ -6,10 +6,6 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# TODO ask Piotr how to remove that and let the user be independant...
-source activate zou
-export LD_LIBRARY_PATH=/public/apps/cuda/8.0/lib64:/private/home/bojanowski/local/lib:${LD_LIBRARY_PATH}
-
 VOC="/private/home/bojanowski/data/VOCdevkit/VOC2007"
 CAFFE="/private/home/bojanowski/code/unsup-eval-pascal/voc-classification/caffe"
 

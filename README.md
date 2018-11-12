@@ -130,7 +130,9 @@ You need to download the [VOC 2007 dataset](http://host.robots.ox.ac.uk/pascal/V
 Indicate in `PROTO` and `MODEL` respectively the path to the prototxt file of the model and the path to the model weights of the model to evaluate.
 The flag `--train-from` allows to indicate the separation between the frozen and to-train layers.
 
-TODO: detection + segmentation
+We implemented [voc classification](https://github.com/facebookresearch/deepcluster/eval_voc_classif.py) with PyTorch.
+Erratum: When training the MLP only (fc6-8), the parameters of scaling of the batch-norm layers in the whole network are trained. 
+With freezing these parameters we get 70.4 mAP.
 
 ### Linear classification on activations
 

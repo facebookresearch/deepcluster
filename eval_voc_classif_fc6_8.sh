@@ -6,11 +6,6 @@
 #
 #!/bin/bash
 
-# TODO ask Piotr how to remove that and let the user be independant...
-export PATH=/public/slurm/17.02.6/bin:/private/home/bojanowski/miniconda3/bin:$PATH
-source activate zou
-export LD_LIBRARY_PATH=/public/apps/cuda/8.0/lib64:/private/home/bojanowski/local/lib:${LD_LIBRARY_PATH}
-
 VOC='/private/home/bojanowski/data/VOCdevkit/VOC2007'
 CAFFE='/private/home/bojanowski/code/unsup-eval-pascal/voc-classification/caffe'
 
