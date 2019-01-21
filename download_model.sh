@@ -15,7 +15,7 @@ do
   mkdir -p "${MODELROOT}/${MODEL}"
   for FILE in checkpoint.pth.tar model.caffemodel model.prototxt
   do
-    wget -c "https://s3.amazonaws.com/deepcluster/${MODEL}/${FILE}" \
+    wget -c "https://dl.fbaipublicfiles.com/deepcluster/${MODEL}/${FILE}" \
       -P "${MODELROOT}/${MODEL}" 
 
   done

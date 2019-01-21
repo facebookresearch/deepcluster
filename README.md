@@ -31,10 +31,10 @@ $ ./download_model.sh
 This will fetch the models into `${HOME}/deepcluster_models` by default.
 You can change that path in the environment variable.
 Direct download links are provided here:
-* [AlexNet-PyTorch](https://s3.amazonaws.com/deepcluster/alexnet/checkpoint.pth.tar)
-* [AlexNet-prototxt](https://s3.amazonaws.com/deepcluster/alexnet/model.prototxt) + [AlexNet-caffemodel](https://s3.amazonaws.com/deepcluster/alexnet/model.caffemodel)
-* [VGG16-PyTorch](https://s3.amazonaws.com/deepcluster/vgg16/checkpoint.pth.tar)
-* [VGG16-prototxt](https://s3.amazonaws.com/deepcluster/vgg16/model.prototxt) + [VGG16-caffemodel](https://s3.amazonaws.com/deepcluster/vgg16/model.caffemodel)
+* [AlexNet-PyTorch](https://dl.fbaipublicfiles.com/deepcluster/alexnet/checkpoint.pth.tar)
+* [AlexNet-prototxt](https://dl.fbaipublicfiles.com/deepcluster/alexnet/model.prototxt) + [AlexNet-caffemodel](https://dl.fbaipublicfiles.com/deepcluster/alexnet/model.caffemodel)
+* [VGG16-PyTorch](https://dl.fbaipublicfiles.com/deepcluster/vgg16/checkpoint.pth.tar)
+* [VGG16-prototxt](https://dl.fbaipublicfiles.com/deepcluster/vgg16/model.prototxt) + [VGG16-caffemodel](https://dl.fbaipublicfiles.com/deepcluster/vgg16/model.caffemodel)
 
 We also provide the last epoch cluster assignments for these models. After downloading, open the file with Python 2:
 ```
@@ -44,8 +44,8 @@ with open("./alexnet_cluster_assignment.pickle", "rb") as f:
 ```
 If you're a Python 3 user, specify ```encoding='latin1'``` in the load fonction.
 Each file is a list of (image path, cluster_index) tuples.
-* [AlexNet-clusters](https://s3.amazonaws.com/deepcluster/alexnet/alexnet_cluster_assignment.pickle)
-* [VGG16-clusters](https://s3.amazonaws.com/deepcluster/vgg16/vgg16_cluster_assignment.pickle)
+* [AlexNet-clusters](https://dl.fbaipublicfiles.com/deepcluster/alexnet/alexnet_cluster_assignment.pickle)
+* [VGG16-clusters](https://dl.fbaipublicfiles.com/deepcluster/vgg16/vgg16_cluster_assignment.pickle)
 
 ## Running the unsupervised training
 
