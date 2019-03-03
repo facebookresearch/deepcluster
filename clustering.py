@@ -287,7 +287,7 @@ def find_maxima_cluster(W, v):
             j = W.indices[l]
             vi = W.data[l] * (v[j] - v[i])
             if vi > best_vi:
-                vi = best_vi
+                best_vi = vi
                 pointers[i] = j
     n_clus = 0
     cluster_ids = -1 * np.ones(n)

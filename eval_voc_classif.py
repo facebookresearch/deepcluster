@@ -88,15 +88,8 @@ def main():
             m.weight.data.normal_(0, 0.01)
             m.bias.data.fill_(0.1)
     model.top_layer.bias.data.fill_(0.1)
-    if not args.fc6_8:
-        for y, m in enumerate(model.features.modules()):
-            if isinstance(m, nn.Conv2d):
-                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                for i in range(m.out_channels):
-                    m.weight.data[i].normal_(0, math.sqrt(2. / n))
-                if m.bias is not None:
-                    m.bias.data.zero_()
-    else:
+
+    if args.fc6_8:
        # freeze some layers 
         for param in model.features.parameters():
             param.requires_grad = False
