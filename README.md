@@ -11,31 +11,12 @@ Finally, this code also includes a visualisation module that allows to assess vi
 
 ## Requirements
 
-- a Python installation version 2.7
+- a Python intallation version 2.7
 - the SciPy and scikit-learn packages
 - a PyTorch install ([pytorch.org](http://pytorch.org))
 - a Faiss install ([Faiss](https://github.com/facebookresearch/faiss))
-- Download the ImageNet dataset
+- Download ImageNet dataset
 
-### Conda installation
-The following instructions can be used to install the requirements with conda:
-
-```
-conda create -n deepcluster python=2.7
-conda activate deepcluster
-pip install scikit-learn
-
-# CPU
-conda install pytorch-cpu torchvision-cpu faiss-cpu -c pytorch 
-
-# For CUDA 8
-conda install pytorch torchvision faiss-gpu cudatoolkit=8.0 -c pytorch 
-# For CUDA 9
-conda install pytorch torchvision faiss-gpu cudatoolkit=9.0 -c pytorch 
-# For CUDA 10
-conda install pytorch torchvision faiss-gpu cudatoolkit=10.0 -c pytorch 
-
-```
 
 ## Pre-trained models
 We provide pre-trained models with AlexNet and VGG-16 architectures, available for download.
