@@ -1,9 +1,16 @@
 # Deep Clustering for Unsupervised Learning of Visual Features
 
+## News
+Our new unsupervised feature learning paper was accepted (oral) at ICCV 2019 in Seoul.
+We show that unsupervised learning can be used to pre-train convnets, leading to a boost in performance on ImageNet classification.
+We achieve that by scaling DeepCluster to a 96M images and mixing it with RotNet self-supervision.
+Check out the [paper](https://arxiv.org/abs/1905.01278) and [code](https://github.com/facebookresearch/DeeperCluster).
+
+## DeepCluster
 This code implements the unsupervised training of convolutional neural networks, or convnets, as described in the paper [Deep Clustering for Unsupervised Learning of Visual Features](https://arxiv.org/abs/1807.05520).
 
 Moreover, we provide the evaluation protocol codes we used in the paper:
-* Pascal VOC classification, detection and segmentation
+* Pascal VOC classification
 * Linear classification on activations
 * Instance-level image retrieval
 
@@ -13,7 +20,8 @@ Finally, this code also includes a visualisation module that allows to assess vi
 
 - a Python intallation version 2.7
 - the SciPy and scikit-learn packages
-- a PyTorch install ([pytorch.org](http://pytorch.org))
+- a PyTorch install version 0.1.8 ([pytorch.org](http://pytorch.org))
+- CUDA 8.0
 - a Faiss install ([Faiss](https://github.com/facebookresearch/faiss))
 - Download ImageNet dataset
 
@@ -46,6 +54,12 @@ If you're a Python 3 user, specify ```encoding='latin1'``` in the load fonction.
 Each file is a list of (image path, cluster_index) tuples.
 * [AlexNet-clusters](https://dl.fbaipublicfiles.com/deepcluster/alexnet/alexnet_cluster_assignment.pickle)
 * [VGG16-clusters](https://dl.fbaipublicfiles.com/deepcluster/vgg16/vgg16_cluster_assignment.pickle)
+
+Finally, we release the features extracted with DeepCluster model for ImageNet dataset.
+These features are in dimension 4096 and correspond to a forward on the model up to the penultimate convolutional layer (just before last ReLU).
+In you plan to cluster the features, don't forget to normalize and reduce/whiten them.
+* [AlexNet-imnetfeatures](https://dl.fbaipublicfiles.com/deepcluster/alexnet/alexnet_features.pkl)
+* [VGG16-imnetfeatures](https://dl.fbaipublicfiles.com/deepcluster/vgg16/vgg16_features.pkl)
 
 ## Running the unsupervised training
 
