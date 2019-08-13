@@ -3,7 +3,7 @@
 ## News
 Our new unsupervised feature learning paper was accepted (oral) at ICCV 2019 in Seoul.
 We show that unsupervised learning can be used to pre-train convnets, leading to a boost in performance on ImageNet classification.
-We achieve that by scaling DeepCluster to a 96M images and mixing it with RotNet self-supervision.
+We achieve that by scaling DeepCluster to 96M images and mixing it with RotNet self-supervision.
 Check out the [paper](https://arxiv.org/abs/1905.01278) and [code](https://github.com/facebookresearch/DeeperCluster).
 
 ## DeepCluster
@@ -18,12 +18,12 @@ Finally, this code also includes a visualisation module that allows to assess vi
 
 ## Requirements
 
-- a Python intallation version 2.7
+- a Python installation version 2.7
 - the SciPy and scikit-learn packages
 - a PyTorch install version 0.1.8 ([pytorch.org](http://pytorch.org))
 - CUDA 8.0
 - a Faiss install ([Faiss](https://github.com/facebookresearch/faiss))
-- Download ImageNet dataset
+- Download the ImageNet dataset
 
 
 ## Pre-trained models
