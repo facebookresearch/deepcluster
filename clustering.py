@@ -159,6 +159,12 @@ def run_kmeans(x, nmb_clusters, verbose=False):
 
     # faiss implementation of k-means
     clus = faiss.Clustering(d, nmb_clusters)
+
+    # Change faiss seed at each k-means so that the randomly picked
+    # initialization centroids do not correspond to the same feature ids
+    # from an epoch to another.
+    clus.seed = np.random.randint(1234)
+
     clus.niter = 20
     clus.max_points_per_centroid = 10000000
     res = faiss.StandardGpuResources()
