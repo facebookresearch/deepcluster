@@ -23,7 +23,7 @@ Finally, this code also includes a visualisation module that allows to assess vi
 - a PyTorch install version 0.1.8 ([pytorch.org](http://pytorch.org))
 - CUDA 8.0
 - a Faiss install ([Faiss](https://github.com/facebookresearch/faiss))
-- The ImageNet dataset (which is automatically [downloaded by torchvision](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet))
+- The ImageNet dataset (which can be automatically downloaded by recent version of [torchvision](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet))
 
 ## Pre-trained models
 We provide pre-trained models with AlexNet and VGG-16 architectures, available for download.

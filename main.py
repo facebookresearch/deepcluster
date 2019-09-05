@@ -126,7 +126,7 @@ def main(args):
 
     # load the data
     end = time.time()
-    dataset = datasets.ImageNet(args.data, download=True, transform=transforms.Compose(tra))
+    dataset = datasets.ImageFolder(args.data, transform=transforms.Compose(tra))
     if args.verbose:
         print('Load dataset: {0:.2f} s'.format(time.time() - end))
 
