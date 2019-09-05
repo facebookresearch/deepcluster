@@ -19,18 +19,20 @@ import torchvision.datasets as datasets
 sys.path.insert(0, '..')
 from util import load_model
 
-parser = argparse.ArgumentParser(description='Retrieve images with maximal activations')
-parser.add_argument('--data', type=str, help='path to dataset')
-parser.add_argument('--model', type=str, help='Model')
-parser.add_argument('--conv', type=int, default=1, help='convolutional layer')
-parser.add_argument('--exp', type=str, default='', help='path to res')
-parser.add_argument('--workers', default=4, type=int,
-                    help='number of data loading workers (default: 4)')
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Retrieve images with maximal activations')
+    parser.add_argument('--data', type=str, help='path to dataset')
+    parser.add_argument('--model', type=str, help='Model')
+    parser.add_argument('--conv', type=int, default=1, help='convolutional layer')
+    parser.add_argument('--exp', type=str, default='', help='path to res')
+    parser.add_argument('--count', type=int, default=9, help='save this many images')
+    parser.add_argument('--workers', default=4, type=int,
+                        help='number of data loading workers (default: 4)')
+    return parser.parse_args()
 
 
-def main():
-    args = parser.parse_args()
-
+def main(args):
     # create repo
     repo = os.path.join(args.exp, 'conv' + str(args.conv))
     if not os.path.isdir(repo):
@@ -75,15 +77,18 @@ def main():
         if i % 100 == 0:
             print('{0}/{1}'.format(i, len(dataloader)))
 
-    # save top 9 images for each filter
+    # save top N images for each filter
     for filt in layers_activations:
         repofilter = os.path.join(repo, filt)
         if not os.path.isdir(repofilter):
             os.mkdir(repofilter)
         top = np.argsort(layers_activations[filt])[::-1]
-        for img in top[:9]:
+        if args.count > 0:
+            top = top[:args.count]
+
+        for pos, img in enumerate(top):
             src, _ = dataset.imgs[img]
-            copyfile(src, os.path.join(repofilter, src.split('/')[-1]))
+            copyfile(src, os.path.join(repofilter, "{}_{}".format(pos, src.split('/')[-1])))
 
 
 def forward(model, my_layer, x):
@@ -105,4 +110,5 @@ def forward(model, my_layer, x):
 
 
 if __name__ == '__main__':
-    main()
+    args = parse_args()
+    main(args)

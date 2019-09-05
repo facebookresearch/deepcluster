@@ -104,7 +104,7 @@ def learning_rate_decay(optimizer, t, lr_0):
         param_group['lr'] = lr
 
 
-class Logger():
+class Logger(object):
     """ Class to update every epoch to keep trace of the results
     Methods:
         - log() log and save

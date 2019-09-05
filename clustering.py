@@ -193,7 +193,7 @@ def arrange_clustering(images_lists):
     return np.asarray(pseudolabels)[indexes]
 
 
-class Kmeans:
+class Kmeans(object):
     def __init__(self, k):
         self.k = k
 
@@ -226,7 +226,7 @@ def make_adjacencyW(I, D, sigma):
                   + first column of identity.
         D (numpy array): for each data the l2 distances to its nnn linked vertices
                   + first column of zeros.
-        sigma (float): Bandwith of the Gaussian kernel.
+        sigma (float): Bandwidth of the Gaussian kernel.
 
     Returns:
         csr_matrix: affinity matrix of the graph.
@@ -273,7 +273,7 @@ def run_pic(I, D, sigma, alpha):
         vnext /= vnext.sum()
         v = vnext
 
-        if (i == 200 - 1):
+        if i == 200 - 1:
             clust = find_maxima_cluster(W, v)
 
     return [int(i) for i in clust]
@@ -312,11 +312,11 @@ def find_maxima_cluster(W, v):
     return assign
 
 
-class PIC():
+class PIC(object):
     """Class to perform Power Iteration Clustering on a graph of nearest neighbors.
         Args:
             args: for consistency with k-means init
-            sigma (float): bandwith of the Gaussian kernel (default 0.2)
+            sigma (float): bandwidth of the Gaussian kernel (default 0.2)
             nnn (int): number of nearest neighbors (default 5)
             alpha (float): parameter in PIC (default 0.001)
             distribute_singletons (bool): If True, reassign each singleton to

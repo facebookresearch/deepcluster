@@ -26,46 +26,45 @@ import models
 from util import AverageMeter, Logger, UnifLabelSampler
 
 
-parser = argparse.ArgumentParser(description='PyTorch Implementation of DeepCluster')
+def parse_args():
+    parser = argparse.ArgumentParser(description='PyTorch Implementation of DeepCluster')
 
-parser.add_argument('data', metavar='DIR', help='path to dataset')
-parser.add_argument('--arch', '-a', type=str, metavar='ARCH',
-                    choices=['alexnet', 'vgg16'], default='alexnet',
-                    help='CNN architecture (default: alexnet)')
-parser.add_argument('--sobel', action='store_true', help='Sobel filtering')
-parser.add_argument('--clustering', type=str, choices=['Kmeans', 'PIC'],
-                    default='Kmeans', help='clustering algorithm (default: Kmeans)')
-parser.add_argument('--nmb_cluster', '--k', type=int, default=10000,
-                    help='number of cluster for k-means (default: 10000)')
-parser.add_argument('--lr', default=0.05, type=float,
-                    help='learning rate (default: 0.05)')
-parser.add_argument('--wd', default=-5, type=float,
-                    help='weight decay pow (default: -5)')
-parser.add_argument('--reassign', type=float, default=1.,
-                    help="""how many epochs of training between two consecutive
-                    reassignments of clusters (default: 1)""")
-parser.add_argument('--workers', default=4, type=int,
-                    help='number of data loading workers (default: 4)')
-parser.add_argument('--epochs', type=int, default=200,
-                    help='number of total epochs to run (default: 200)')
-parser.add_argument('--start_epoch', default=0, type=int,
-                    help='manual epoch number (useful on restarts) (default: 0)')
-parser.add_argument('--batch', default=256, type=int,
-                    help='mini-batch size (default: 256)')
-parser.add_argument('--momentum', default=0.9, type=float, help='momentum (default: 0.9)')
-parser.add_argument('--resume', default='', type=str, metavar='PATH',
-                    help='path to checkpoint (default: None)')
-parser.add_argument('--checkpoints', type=int, default=25000,
-                    help='how many iterations between two checkpoints (default: 25000)')
-parser.add_argument('--seed', type=int, default=31, help='random seed (default: 31)')
-parser.add_argument('--exp', type=str, default='', help='path to exp folder')
-parser.add_argument('--verbose', action='store_true', help='chatty')
+    parser.add_argument('data', metavar='DIR', help='path to dataset')
+    parser.add_argument('--arch', '-a', type=str, metavar='ARCH',
+                        choices=['alexnet', 'vgg16'], default='alexnet',
+                        help='CNN architecture (default: alexnet)')
+    parser.add_argument('--sobel', action='store_true', help='Sobel filtering')
+    parser.add_argument('--clustering', type=str, choices=['Kmeans', 'PIC'],
+                        default='Kmeans', help='clustering algorithm (default: Kmeans)')
+    parser.add_argument('--nmb_cluster', '--k', type=int, default=10000,
+                        help='number of cluster for k-means (default: 10000)')
+    parser.add_argument('--lr', default=0.05, type=float,
+                        help='learning rate (default: 0.05)')
+    parser.add_argument('--wd', default=-5, type=float,
+                        help='weight decay pow (default: -5)')
+    parser.add_argument('--reassign', type=float, default=1.,
+                        help="""how many epochs of training between two consecutive
+                        reassignments of clusters (default: 1)""")
+    parser.add_argument('--workers', default=4, type=int,
+                        help='number of data loading workers (default: 4)')
+    parser.add_argument('--epochs', type=int, default=200,
+                        help='number of total epochs to run (default: 200)')
+    parser.add_argument('--start_epoch', default=0, type=int,
+                        help='manual epoch number (useful on restarts) (default: 0)')
+    parser.add_argument('--batch', default=256, type=int,
+                        help='mini-batch size (default: 256)')
+    parser.add_argument('--momentum', default=0.9, type=float, help='momentum (default: 0.9)')
+    parser.add_argument('--resume', default='', type=str, metavar='PATH',
+                        help='path to checkpoint (default: None)')
+    parser.add_argument('--checkpoints', type=int, default=25000,
+                        help='how many iterations between two checkpoints (default: 25000)')
+    parser.add_argument('--seed', type=int, default=31, help='random seed (default: 31)')
+    parser.add_argument('--exp', type=str, default='', help='path to exp folder')
+    parser.add_argument('--verbose', action='store_true', help='chatty')
+    return parser.parse_args()
 
 
-def main():
-    global args
-    args = parser.parse_args()
-
+def main(args):
     # fix random seeds
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
@@ -127,8 +126,10 @@ def main():
 
     # load the data
     end = time.time()
-    dataset = datasets.ImageFolder(args.data, transform=transforms.Compose(tra))
-    if args.verbose: print('Load dataset: {0:.2f} s'.format(time.time() - end))
+    dataset = datasets.ImageNet(args.data, download=True, transform=transforms.Compose(tra))
+    if args.verbose:
+        print('Load dataset: {0:.2f} s'.format(time.time() - end))
+
     dataloader = torch.utils.data.DataLoader(dataset,
                                              batch_size=args.batch,
                                              num_workers=args.workers,
@@ -149,13 +150,17 @@ def main():
         features = compute_features(dataloader, model, len(dataset))
 
         # cluster the features
+        if args.verbose:
+            print('Cluster the features')
         clustering_loss = deepcluster.cluster(features, verbose=args.verbose)
 
         # assign pseudo-labels
+        if args.verbose:
+            print('Assign pseudo labels')
         train_dataset = clustering.cluster_assign(deepcluster.images_lists,
                                                   dataset.imgs)
 
-        # uniformely sample per target
+        # uniformly sample per target
         sampler = UnifLabelSampler(int(args.reassign * len(train_dataset)),
                                    deepcluster.images_lists)
 
@@ -297,13 +302,14 @@ def compute_features(dataloader, model, N):
         aux = model(input_var).data.cpu().numpy()
 
         if i == 0:
-            features = np.zeros((N, aux.shape[1])).astype('float32')
+            features = np.zeros((N, aux.shape[1]), dtype='float32')
 
+        aux = aux.astype('float32')
         if i < len(dataloader) - 1:
-            features[i * args.batch: (i + 1) * args.batch] = aux.astype('float32')
+            features[i * args.batch: (i + 1) * args.batch] = aux
         else:
             # special treatment for final batch
-            features[i * args.batch:] = aux.astype('float32')
+            features[i * args.batch:] = aux
 
         # measure elapsed time
         batch_time.update(time.time() - end)
@@ -317,4 +323,5 @@ def compute_features(dataloader, model, N):
 
 
 if __name__ == '__main__':
-    main()
+    args = parse_args()
+    main(args)
