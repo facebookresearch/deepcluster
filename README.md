@@ -1,11 +1,5 @@
 # Deep Clustering for Unsupervised Learning of Visual Features
 
-## News
-Our new unsupervised feature learning paper was accepted (oral) at ICCV 2019 in Seoul.
-We show that unsupervised learning can be used to pre-train convnets, leading to a boost in performance on ImageNet classification.
-We achieve that by scaling DeepCluster to 96M images and mixing it with RotNet self-supervision.
-Check out the [paper](https://arxiv.org/abs/1905.01278) and [code](https://github.com/facebookresearch/DeeperCluster).
-
 ## DeepCluster
 This code implements the unsupervised training of convolutional neural networks, or convnets, as described in the paper [Deep Clustering for Unsupervised Learning of Visual Features](https://arxiv.org/abs/1807.05520).
 
@@ -248,6 +242,10 @@ optional arguments:
   --niter NITER         total number of iterations (default: 1000)
   --idim IDIM           size of input image (default: 224)
 ```
+I recommand you play with the hyper-parameters to find a regime where the visualisations are good.
+For example with the pre-trained deepcluster AlexNet, for conv1 using a learning rate of 3 and 30.000 iterations works well.
+For conv5, using a learning rate of 30 and 3.000 iterations gives nice images with the other parameters set to their default values.
+
 ### Top 9 maximally activated images in a dataset
 
 Finally, we provide code to retrieve images in a dataset that maximally activate a given filter in the convnet.
@@ -255,6 +253,13 @@ From the visu folder, after having changed the fields ```MODEL```, ```EXP```, ``
 ```
 ./activ-retrieval.sh
 ```
+
+## DeeperCluster
+
+We have proposed another unsupervised feature learning paper at ICCV 2019.
+We have shown that unsupervised learning can be used to pre-train convnets, leading to a boost in performance on ImageNet classification.
+We achieve that by scaling DeepCluster to 96M images and mixing it with RotNet self-supervision.
+Check out the [paper](https://arxiv.org/abs/1905.01278) and [code](https://github.com/facebookresearch/DeeperCluster).
 
 ## License
 
