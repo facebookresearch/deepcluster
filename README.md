@@ -1,5 +1,13 @@
 # Deep Clustering for Unsupervised Learning of Visual Features
 
+## News
+We release [paper](https://arxiv.org/abs/2006.09882) and [code](https://github.com/facebookresearch/swav) for SwAV, our new self-supervised method.
+SwAV pushes self-supervised learning to only 1.2% away from supervised learning on ImageNet with a ResNet-50!
+It combines online clustering with a multi-crop data augmentation.
+
+We also present DeepCluster-v2, which is an improved version of DeepCluster (ResNet-50, better data augmentation, cosine learning rate schedule, MLP projection head, use of centroids, ...).
+Check out [DeepCluster-v2 code](https://github.com/facebookresearch/swav/blob/master/main_deepclusterv2.py).
+
 ## DeepCluster
 This code implements the unsupervised training of convolutional neural networks, or convnets, as described in the paper [Deep Clustering for Unsupervised Learning of Visual Features](https://arxiv.org/abs/1807.05520).
 
